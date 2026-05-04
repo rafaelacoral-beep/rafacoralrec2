@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copos em Movimento Contrário</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+            overflow: hidden;
+        }
+
+        .copo {
+            width: 160px;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: none;
+            border-radius: 0 0 40px 40px;
+            position: relative;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: flex-end; 
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        /* Boca do copo com efeito de perspectiva */
+        .copo::before {
+            content: "";
+            position: absolute;
+            top: -25px;
+            left: -4px;
+            width: calc(100% + 0px);
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 10;
+        }
+
+        /* Líquido com animação base */
+        .liquido {
+            width: 100%;
+            position: relative;
+            filter: contrast(1.2);
+            animation: movimentoOposto 4s ease-in-out infinite;
+        }
+
+        /* Animação de altura */
+        @keyframes movimentoOposto {
+            0%, 100% { height: 20%; }
+            50% { height: 90%; }
+        }
+
+        /* Copo Laranja: Movimento Normal */
+        .laranja {
+            background: linear-gradient(to top, #ff4500, #ffcc00);
+            box-shadow: 0 0 40px rgba(255, 69, 0, 0.3);
+        }
+
+        /* Copo Azul: Movimento Atrasado (Cria o efeito contrário) */
+        .azul {
+            background: linear-gradient(to top, #0000ff, #00d4ff);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            /* O atraso de -2s em uma animação de 4s coloca ele no estado oposto */
+            animation-delay: -2s; 
+        }
+
+        /* Reflexo vertical no vidro */
+        .reflexo {
+            position: absolute;
+            top: 10%;
+            left: 15%;
+            width: 12px;
+            height: 70%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+            border-radius: 20px;
+            z-index: 15;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="copo">
+        <div class="reflexo"></div>
+        <div class="liquido laranja"></div>
+    </div>
+
+    <div class="copo">
+        <div class="reflexo"></div>
+        <div class="liquido azul"></div>
+    </div>
+
+</body>
+</html>
